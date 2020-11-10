@@ -1,0 +1,576 @@
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+
+// fonts
+$font: 'Nunito', sans-serif;
+
+// colors   
+$white: #ffffff;
+$black: #231f20;
+$darkgray: #525257;
+$gray: #d2d2d7;
+$green: #58db77;
+$mint: #C4D4DA;
+$orange: #f1bb3a;
+$pink: #ede0df;
+
+$em-base: 16px;
+/***
+ * COLORS
+ */
+$fountain:     #60C4B7; // green
+$lochinvar:    #279184; // dark green
+$dark-green:   #005248; // darkest green
+$sanmarino:    #3E62AC; // dark blue
+$danmarino:    #1f3156;
+$sky-blue:     #5F8AE2; // medium blue
+$royal-blue:   #213F7D; // royal blue
+$blaze:        #FF6600; // orange
+$blazed:       #BA4A00;
+$scarlet:      #FF3400; // red
+$abbey:        #5C5D5F; // dark gray
+$blue-manatee: #8B8E99; // blue gray
+$manatee:      #949599; // text gray
+$porcelain:    #F2F3F4; // lighter gray
+$iron:         #E5E6E8; // light gray
+$french:       #C7C8CC; // bold link gray
+$sapphire:     #103279; // dark blue
+$light-grey:   #EBF7F5;
+$black:        #000000;
+$white:        #FFFFFF;
+$title-border:        #84A0DD;
+$title-border-green:  #BCE3DE;
+$title-border-orange: #FF6600;
+$title-border-gray:   #C7C8CC;
+$link-color:      $lochinvar;
+$link-color-alt:  $fountain;
+$link-light:      $french;
+$link-dark:       $abbey;
+$fill-dark:       $iron;
+$fill-light:      $porcelain;
+$button-light:    $fountain;
+$button-dark:     $lochinvar;
+$button-alt:      $blaze;
+$rating-colors: (1: $sky-blue,
+        2: $fountain,
+        3: $dark-green,
+        4: $royal-blue);
+
+// transition
+@mixin transition($transition...) {
+    -moz-transition:    $transition;
+    -o-transition:      $transition;
+    -webkit-transition: $transition;
+    transition:         $transition;
+}
+@mixin transition-property($property...) {
+    -moz-transition-property:    $property;
+    -o-transition-property:      $property;
+    -webkit-transition-property: $property;
+    transition-property:         $property;
+}
+@mixin transition-duration($duration...) {
+    -moz-transition-property:    $duration;
+    -o-transition-property:      $duration;
+    -webkit-transition-property: $duration;
+    transition-property:         $duration;
+}
+@mixin transition-timing-function($timing...) {
+    -moz-transition-timing-function:    $timing;
+    -o-transition-timing-function:      $timing;
+    -webkit-transition-timing-function: $timing;
+    transition-timing-function:         $timing;
+}
+@mixin transition-delay($delay...) {
+    -moz-transition-delay:    $delay;
+    -o-transition-delay:      $delay;
+    -webkit-transition-delay: $delay;
+    transition-delay:         $delay;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: #EDE7EF;
+  }
+  100% {
+    background-color: $mint;
+  }
+}
+
+%clear-button-defaults {
+    background: none;
+    border: none;
+    border-radius: 0;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+
+%clear-list-defaults {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        &:before {
+            position: inherit;
+            top: inherit;
+            right: inherit;
+            bottom: inherit;
+            left: inherit;
+            background: none;
+            content: none;
+        }
+    }
+}
+// .group:
+// clearfix
+.group, %group {
+   &:after {
+       content: '';
+       display: table;
+       clear: both;
+   }
+}
+
+@function rem($px) {
+    @return ($px / 16)+rem;
+  }
+  @mixin museo-sans($weight: 300, $style: normal) {
+    font-family: "museo-sans", 'MuseoSans500', -apple-system, system-ui, 'Helvetica', 'Arial', sans-serif;
+    font-style: $style;
+    font-weight: $weight;
+  }
+  @mixin museo-slab($weight: 900, $style: normal) {
+    font-family: "museo-slab", 'MuseoSans500', 'Helvetica', 'Arial', sans-serif;
+    font-style: $style;
+    font-weight: $weight;
+  }
+  @mixin museo-display($weight: 900, $style: normal) {
+    font-family: "museo-sans-display", 'MuseoSans500', 'Helvetica', sans-serif;
+    font-style: $style;
+    font-weight: $weight;
+  }
+  @mixin container($width: 1240px) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: $width;
+    @media (max-width: 1260px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  @mixin breakpoint($point){
+      @if ($point == xl){
+          @media (min-width: 1600px){ @content }
+      }
+      @if ($point == lg){
+          @media (min-width: 1200px){ @content }
+      }
+      @else if ($point == md-max){
+          @media (max-width: 1199px){ @content }
+      }
+      @else if ($point == md-min){
+          @media (min-width: 992px) { @content }
+      }
+      @else if ($point == sm){
+          @media (min-width: 768px) and (max-width: 991px){ @content }
+      }
+      @else if ($point == sm-max){
+          @media (max-width: 991px) { @content }
+      }
+      @else if ($point == sm-min){
+          @media (min-width: 768px) { @content }
+      }
+      @else if ($point == xs){
+          @media (max-width: 767px)  { @content }
+      }
+      @else if ($point == xxs){
+          @media (max-width: 640px) and (min-width: 481px){ @content }
+      }
+      @else if ($point == xxxs){
+          @media  (max-width: 480px){ @content }
+      }
+  }
+
+
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content}
+  &::-moz-placeholder           {@content}
+  &:-moz-placeholder           {@content}
+  &:-ms-input-placeholder      {@content}
+}
+
+.site-wrap {
+    font-family: 'Merriweather', serif;
+    section {
+        &.hero {
+            position: relative;
+            min-height: 1000px;
+            width: 100%;
+            padding: 275px 50px 40px;
+            background: url(img/herobg.png) no-repeat center;
+            background-size: cover;
+            .slogan {
+                margin: 0 190px 0;
+                padding: 60px 55px;
+                border: 1px solid rgba(143, 143, 142, .50);
+                text-align: center;
+                h1 {
+                    color: #fff;
+                    font-size: 55px;
+                    line-height: 90px;
+                    span {
+                        &.color-text{
+                            color: #f7ac53;
+
+                        }
+                    }
+                }
+            }
+            .nav {
+                ul {
+                    list-style: none;
+                    text-align: center;
+                    li {
+                        position: relative;
+                        display: inline-block;
+                        &::after {
+                            position: absolute;
+                            top: 37px;
+                            bottom: 0;
+                            right: 0;
+                            margin: 2px 0 0;
+                            height: 13px;
+                            width: 2px;
+                            background: #f7ac53;
+                            content: '';
+                        }
+                        &:last-child {
+                            &::after {
+                                background: none;
+                            }
+                        }
+                        a {
+                            padding: 0 12px 0;
+                            color: #fff;
+                            font-family: 'Open Sans', sans-serif;
+                            font-size: 13px;
+                            line-height: 90px;
+                            text-transform: uppercase;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+body {
+    width: 100%;
+    height: 100%;
+    background: $white;
+    color: $black;
+    font-family: $font;
+    h1, h2, h3, h4, h5, h6, p {
+        margin: 0;
+    } 
+    .background {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: -100;
+    }
+    nav {
+        &.menu {
+            position: relative;
+            margin: 30px;
+            text-align: center;
+            ul {
+                @extend %clear-list-defaults;
+                li {
+                    width: 100px;
+                    padding: 10px;
+                    display: inline-block;
+                    text-align: center;
+                    opacity: .5;
+                    font-size: 16px;
+                    a {
+                        color: $black;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+    section {
+        position: relative;
+        padding: 265px 150px;
+        &.banner {
+            position: relative;
+            #element {
+                margin-left: 20px;
+                color: $black;
+                font-size: 32px;
+                opacity: .7;
+                text-align: left;
+            }
+        }
+        &.about {
+            padding: 200px 150px;
+            background-color: $gray;
+            color: $white;
+            h2 {
+                margin-bottom: 30px;
+            }
+            img {
+                border-radius: 50%;
+            }
+        }
+        &.skills {
+            position: relative;
+            padding: 50px 20px;
+            color: $black;
+            font-size: 16px;
+            text-align: center;
+            h2 {
+                margin-bottom: 30px;
+            }
+            i {
+                display: block;
+                font-size: 6em;
+                padding: 20px;
+                &:hover {
+                    
+                }
+            }
+        }
+        &.portfolio {
+            padding: 50px 20px 70px;
+            background-color: $mint;
+            .container {
+                margin-top: 20px;
+                width: 100%;
+                display: flex;
+                justify-content: space-evenly;
+                > div {
+                    width: calc(50%/3);
+                    height: 60vh;
+                    display: flex;
+                    flex-grow: 1;
+                    justify-content: center;
+                    align-items: center;
+                    transition: all 300ms ease-in-out;
+                    &:hover {
+                        flex-grow: 4;
+                    }
+                    > h1 {
+                        transform: rotate(-90deg);
+                        transition: all 300ms ease-in-out;
+                        &:hover {
+                            transform: rotate(0deg);
+                            transform: scale(1.5);
+                            color: black;
+                        }
+                    }
+                }
+                .one {
+                    background-color: $white;
+                }
+                
+                .two {
+                    background-color: $black;
+                    color: $white;
+                }
+                
+                .three {
+                    background-color: $pink;
+                }
+            }
+            h2 {
+                margin-bottom: 30px;
+                text-align: center;
+            }
+            img {
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+                &:hover {
+                    opacity: .7;
+                }
+            }
+        }
+        &.contact {
+            padding: 40px;
+            background: $white;
+        }
+    }
+    form {
+        label {
+            color: $sanmarino;
+            display: block;
+            //font-family: $museo-display; //Need to be changed to MuseoSans-700
+            font-size: 14px;
+            line-height: 26px;
+            text-transform: uppercase;
+        }
+        input {
+            @include transition(background 255ms);
+            height: auto;
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 6px 15px;
+            color: $abbey;
+            background: $white;
+            border: 1px solid $french;
+            border-radius: 0;
+            box-shadow: none;        
+            font-size: 16px;
+            font-family: $font;
+            max-width: 100%;
+            -webkit-appearance: none !important;        
+            @include placeholder {
+                color:  $french;
+                font-style: italic;            
+            }
+            &:focus {
+                border: 1px solid $french;
+                outline: none;
+            }   
+            &[type="text"], &[type="email"]{
+                width: 50%;
+                @include breakpoint(xs){
+                    width: 100%;
+                }
+            }     
+            &[type="checkbox"] {
+                position: absolute;
+                left: -9999em;
+                margin: 0;
+                border-radius: 0;
+                -webkit-appearance: none;
+                &:checked {
+                    + label {
+                        &:before {
+                            background-color: $white;
+                            background-size: 16px 12px;
+                            background-position: center center;
+                            color: $sanmarino;
+                            content: "\e013";
+                            font-family: 'Glyphicons Halflings';
+                            line-height: 24px;
+                            text-indent: 5px;
+                        }
+                    }
+                }
+
+                + label {
+                    height: 20px;
+                    margin: 0 0 12px;
+                    padding: 0 0 0 40px;
+                    position: relative;
+                    color: $abbey;
+                    display: block;
+                    font-size: 16px;
+                    //font-family: $museo-display; //Need to be changed to MuseoSans-700
+                    line-height: 26px;
+                    &:before {
+                        @include transition(background 225ms);
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        height: 28px;
+                        width: 28px;
+                        display: block;
+                        background-color: $white;
+                        border: 1px solid $french;
+                        border-radius: 5px;
+                        content: '';
+                    }
+                }
+            }
+        }
+        textarea {
+            @include transition(background 255ms);
+            height: auto;
+            min-height: 163px;
+            margin-bottom: 15px;
+            width: 100%;
+            padding: 6px 15px;
+            color: $abbey;
+            background: $white;
+            border: 1px solid $french;
+            border-radius: 0;
+            box-shadow: none;        
+            font-size: 16px;
+            font-family: $font;
+            max-width: 100%;
+            -webkit-appearance: none !important;        
+            @include placeholder {
+                color:  $french;
+                font-style: italic;            
+            }
+            &:focus {
+                border: 1px solid $french;
+                outline: none;
+            } 
+        }
+        button {
+            margin: 30px 0 0;
+            padding: 30px 40px;
+            background-color: $sanmarino;
+            border-radius: 20px;
+            border: none;
+            color: $white;
+            display: block;
+            font-size: 26px;
+            text-align: center;
+        }
+    }
+    .question-and-answer {
+        margin-bottom: 50px;
+        position: relative;
+        .question {
+            margin-bottom: 40px;
+            padding-left: 75px;
+            position: relative;
+            color: $abbey;
+            //font-family: $museo-display;
+            display: block;
+            font-size: 22px;
+            line-height: 28px;
+            &::before {
+                content: "Q:";
+                position: absolute;
+                top: 0;
+                left: 0;
+                color: $sanmarino;
+                font-size: 58px;
+            }
+        }
+        .answer {
+            padding-left: 75px;
+            position: relative;
+            color: $abbey;
+            //font-family: $museo-display; //Need to be changed to MuseoSans-700
+            display: block;
+            font-size: 18px;
+            line-height: 26px;
+            &::before {
+                content: "A:";
+                position: absolute;
+                top: 0;
+                left: 14px;
+                color: $french;
+                font-size: 48px;
+            }
+        }
+    }
+}
